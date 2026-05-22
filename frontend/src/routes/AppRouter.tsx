@@ -12,6 +12,7 @@ const AIMentorPage = lazy(() => import("../pages/AiMentorPage").then((module) =>
 const ProjectsPage = lazy(() => import("../pages/ProjectsPage").then((module) => ({ default: module.ProjectsPage })));
 const CommunityPage = lazy(() => import("../pages/CommunityPage").then((module) => ({ default: module.CommunityPage })));
 const ResumeBuilderPage = lazy(() => import("../pages/ResumeBuilderPage").then((module) => ({ default: module.ResumeBuilderPage })));
+const ProfilePage = lazy(() => import("../pages/ProfilePage").then((module) => ({ default: module.ProfilePage })));
 const TopicPage = lazy(() => import("../pages/TopicPage").then((module) => ({ default: module.TopicPage })));
 const QuizPage = lazy(() => import("../pages/QuizPage").then((module) => ({ default: module.QuizPage })));
 const DsaPage = lazy(() => import("../pages/DsaPage").then((module) => ({ default: module.DsaPage })));
@@ -36,7 +37,7 @@ export function AppRouter() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.25 }}
+          transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
           <Routes location={location}>
             <Route path="/login" element={<AuthPage />} />
@@ -55,7 +56,7 @@ export function AppRouter() {
                       <Route path="dsa" element={<DsaPage />} />
                       <Route path="code-editor" element={<CodeEditorPage />} />
                       <Route path="interview-prep" element={<InterviewPrepPage />} />
-                      <Route path="profile" element={<ResumeBuilderPage />} />
+                      <Route path="profile" element={<ProfilePage />} />
                       <Route path="resume-builder" element={<ResumeBuilderPage />} />
                       <Route path="leaderboard" element={<LeaderboardPage />} />
                       <Route path="settings" element={<SettingsPage />} />

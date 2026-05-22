@@ -10,16 +10,13 @@ export function useLogin() {
   const setAuth = useAuthStore((state) => state.setAuth);
 
   return useMutation({
-    mutationFn: async (payload: { email: string; password: string }) => {
-      try {
-        return await loginApi(payload.email, payload.password);
-      } catch (error) {
-        throw error;
-      }
-    },
-    onSuccess: (auth) => {
-      setAuth(auth);
-      toast.success("Welcome back. Let us build your Java momentum.");
+    mutationFn: async (payload: { email: string; password: string; rememberMe: boolean }) => ({
+      auth: await loginApi(payload.email, payload.password),
+      rememberMe: payload.rememberMe,
+    }),
+    onSuccess: ({ auth, rememberMe }) => {
+      setAuth(auth, rememberMe);
+      toast.success("Welcome back Rahul, your workspace is ready.");
     },
     onError: (error) => {
       const message = error instanceof Error ? error.message : "Login failed";

@@ -10,13 +10,8 @@ export function useQuizQuestions(topicId: number) {
   return useQuery({
     queryKey: ["quiz", topicId],
     enabled: topicId > 0,
-    queryFn: async () => {
-      try {
-        return await fetchQuizQuestions(topicId);
-      } catch (error) {
-        throw error;
-      }
-    },
+    queryFn: () => fetchQuizQuestions(topicId),
+    staleTime: 180_000,
   });
 }
 
@@ -25,13 +20,7 @@ export function useQuizQuestions(topicId: number) {
  */
 export function useSubmitQuiz() {
   return useMutation({
-    mutationFn: async (payload: SubmitQuizRequest) => {
-      try {
-        return await submitQuiz(payload);
-      } catch (error) {
-        throw error;
-      }
-    },
+    mutationFn: (payload: SubmitQuizRequest) => submitQuiz(payload),
     onSuccess: (result) => {
       toast.success(result.passed ? "Quiz passed. XP awarded." : "Submitted. Review and retry for higher XP.");
     },

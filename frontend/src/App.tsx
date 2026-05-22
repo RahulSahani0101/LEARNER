@@ -13,8 +13,9 @@ export default function App() {
         toastOptions={{
           style: {
             border: "1px solid rgba(255,255,255,0.12)",
-            background: "rgba(11,17,32,0.94)",
-            color: "#F8FAFC",
+            background: "rgba(18,23,34,0.94)",
+            color: "#F5F7FA",
+            borderRadius: "12px",
           },
         }}
       />

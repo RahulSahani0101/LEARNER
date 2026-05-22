@@ -9,7 +9,7 @@ interface AuthState {
   role: Role | null;
   accessToken: string | null;
   refreshToken: string | null;
-  setAuth: (payload: AuthPayload) => void;
+  setAuth: (payload: AuthPayload, rememberMe?: boolean) => void;
   logout: () => void;
 }
 
@@ -23,9 +23,9 @@ export const useAuthStore = create<AuthState>((set) => ({
   role: getSessionMeta()?.role ?? null,
   accessToken: getAccessToken(),
   refreshToken: getRefreshToken(),
-  setAuth: (payload) => {
-    persistTokens(payload);
-    persistSessionMeta(payload);
+  setAuth: (payload, rememberMe = true) => {
+    persistTokens(payload, rememberMe);
+    persistSessionMeta(payload, rememberMe);
     set({
       isAuthenticated: true,
       email: payload.email,

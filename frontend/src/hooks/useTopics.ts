@@ -8,13 +8,8 @@ import { fetchTopicBySlug, fetchTopics, updateTopicProgress } from "../lib/api";
 export function useTopics() {
   return useQuery({
     queryKey: ["topics"],
-    queryFn: async () => {
-      try {
-        return await fetchTopics();
-      } catch (error) {
-        throw error;
-      }
-    },
+    queryFn: fetchTopics,
+    staleTime: 120_000,
   });
 }
 
@@ -25,13 +20,8 @@ export function useTopicDetail(slug: string) {
   return useQuery({
     queryKey: ["topic", slug],
     enabled: Boolean(slug),
-    queryFn: async () => {
-      try {
-        return await fetchTopicBySlug(slug);
-      } catch (error) {
-        throw error;
-      }
-    },
+    queryFn: () => fetchTopicBySlug(slug),
+    staleTime: 180_000,
   });
 }
 
@@ -40,13 +30,7 @@ export function useTopicDetail(slug: string) {
  */
 export function useUpdateTopicProgress() {
   return useMutation({
-    mutationFn: async (payload: { topicId: number; completion: number }) => {
-      try {
-        await updateTopicProgress(payload.topicId, payload.completion);
-      } catch (error) {
-        throw error;
-      }
-    },
+    mutationFn: (payload: { topicId: number; completion: number }) => updateTopicProgress(payload.topicId, payload.completion),
     onSuccess: () => {
       toast.success("Progress updated");
     },

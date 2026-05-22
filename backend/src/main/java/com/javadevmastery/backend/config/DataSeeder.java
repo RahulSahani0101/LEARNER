@@ -67,7 +67,7 @@ public class DataSeeder implements CommandLineRunner {
                 .build());
 
         User demo = userRepository.save(User.builder()
-                .fullName("Rahul Sharma")
+                .fullName("Rahul Sahani")
                 .email("demo@javadevmastery.com")
                 .passwordHash(passwordEncoder.encode("Password@123"))
                 .role(Role.ROLE_USER)

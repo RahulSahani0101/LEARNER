@@ -7,12 +7,7 @@ import { fetchDashboard } from "../lib/api";
 export function useDashboard() {
   return useQuery({
     queryKey: ["dashboard"],
-    queryFn: async () => {
-      try {
-        return await fetchDashboard();
-      } catch (error) {
-        throw error;
-      }
-    },
+    queryFn: fetchDashboard,
+    staleTime: 120_000,
   });
 }

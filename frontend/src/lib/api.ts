@@ -5,6 +5,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080
 const ACCESS_TOKEN_KEY = "jdm_access_token";
 const REFRESH_TOKEN_KEY = "jdm_refresh_token";
 const SESSION_META_KEY = "jdm_session_meta";
+const STORAGE_MODE_KEY = "jdm_storage_mode";
 
 let isRefreshing = false;
 let refreshSubscribers: Array<(token: string) => void> = [];
@@ -15,46 +16,91 @@ interface SessionMeta {
   role: Role;
 }
 
+type StorageMode = "local" | "session";
+
+function getStorageByMode(mode: StorageMode): Storage {
+  return mode === "local" ? localStorage : sessionStorage;
+}
+
+function getStoredStorageMode(): StorageMode {
+  const value = localStorage.getItem(STORAGE_MODE_KEY);
+  return value === "session" ? "session" : "local";
+}
+
+function findTokenStorage(): Storage {
+  if (localStorage.getItem(ACCESS_TOKEN_KEY) || localStorage.getItem(REFRESH_TOKEN_KEY)) {
+    return localStorage;
+  }
+
+  if (sessionStorage.getItem(ACCESS_TOKEN_KEY) || sessionStorage.getItem(REFRESH_TOKEN_KEY)) {
+    return sessionStorage;
+  }
+
+  return getStorageByMode(getStoredStorageMode());
+}
+
+function readToken(key: string): string | null {
+  const storage = findTokenStorage();
+  return storage.getItem(key);
+}
+
+function clearStorageKeys(storage: Storage): void {
+  storage.removeItem(ACCESS_TOKEN_KEY);
+  storage.removeItem(REFRESH_TOKEN_KEY);
+  storage.removeItem(SESSION_META_KEY);
+}
+
 /**
  * Returns the current access token from browser storage.
  */
 export function getAccessToken(): string | null {
-  return localStorage.getItem(ACCESS_TOKEN_KEY);
+  return readToken(ACCESS_TOKEN_KEY);
 }
 
 /**
  * Returns the current refresh token from browser storage.
  */
 export function getRefreshToken(): string | null {
-  return localStorage.getItem(REFRESH_TOKEN_KEY);
+  return readToken(REFRESH_TOKEN_KEY);
 }
 
 /**
  * Persists the latest access and refresh token pair.
  */
-export function persistTokens(auth: Pick<AuthPayload, "accessToken" | "refreshToken">): void {
-  localStorage.setItem(ACCESS_TOKEN_KEY, auth.accessToken);
-  localStorage.setItem(REFRESH_TOKEN_KEY, auth.refreshToken);
+export function persistTokens(auth: Pick<AuthPayload, "accessToken" | "refreshToken">, rememberMe = true): void {
+  const mode: StorageMode = rememberMe ? "local" : "session";
+  const targetStorage = getStorageByMode(mode);
+  const alternateStorage = mode === "local" ? sessionStorage : localStorage;
+  localStorage.setItem(STORAGE_MODE_KEY, mode);
+
+  alternateStorage.removeItem(ACCESS_TOKEN_KEY);
+  alternateStorage.removeItem(REFRESH_TOKEN_KEY);
+  targetStorage.setItem(ACCESS_TOKEN_KEY, auth.accessToken);
+  targetStorage.setItem(REFRESH_TOKEN_KEY, auth.refreshToken);
 }
 
 /**
  * Persists non-token profile data required for guarded routes and profile UI.
  */
-export function persistSessionMeta(auth: Pick<AuthPayload, "email" | "fullName" | "role">): void {
+export function persistSessionMeta(auth: Pick<AuthPayload, "email" | "fullName" | "role">, rememberMe = true): void {
+  const mode: StorageMode = rememberMe ? "local" : "session";
+  const targetStorage = getStorageByMode(mode);
+  const alternateStorage = mode === "local" ? sessionStorage : localStorage;
   const payload: SessionMeta = {
     email: auth.email,
     fullName: auth.fullName,
     role: auth.role,
   };
 
-  localStorage.setItem(SESSION_META_KEY, JSON.stringify(payload));
+  alternateStorage.removeItem(SESSION_META_KEY);
+  targetStorage.setItem(SESSION_META_KEY, JSON.stringify(payload));
 }
 
 /**
  * Returns persisted profile metadata if available.
  */
 export function getSessionMeta(): SessionMeta | null {
-  const rawValue = localStorage.getItem(SESSION_META_KEY);
+  const rawValue = localStorage.getItem(SESSION_META_KEY) ?? sessionStorage.getItem(SESSION_META_KEY);
   if (!rawValue) {
     return null;
   }
@@ -75,9 +121,8 @@ export function getSessionMeta(): SessionMeta | null {
  * Clears all persisted authentication tokens.
  */
 export function clearTokens(): void {
-  localStorage.removeItem(ACCESS_TOKEN_KEY);
-  localStorage.removeItem(REFRESH_TOKEN_KEY);
-  localStorage.removeItem(SESSION_META_KEY);
+  clearStorageKeys(localStorage);
+  clearStorageKeys(sessionStorage);
 }
 
 const http = axios.create({
@@ -135,8 +180,9 @@ http.interceptors.response.use(
         refreshToken: token,
       });
 
-      persistTokens(response.data.data);
-      persistSessionMeta(response.data.data);
+      const storageMode = findTokenStorage() === sessionStorage ? "session" : "local";
+      persistTokens(response.data.data, storageMode === "local");
+      persistSessionMeta(response.data.data, storageMode === "local");
       refreshSubscribers.forEach((subscriber) => subscriber(response.data.data.accessToken));
       refreshSubscribers = [];
       originalRequest.headers.Authorization = `Bearer ${response.data.data.accessToken}`;

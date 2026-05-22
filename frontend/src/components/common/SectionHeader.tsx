@@ -8,9 +8,9 @@ interface SectionHeaderProps {
  */
 export function SectionHeader({ title, description }: SectionHeaderProps) {
   return (
-    <header>
-      <h2 className="font-heading text-2xl font-semibold text-brand-text">{title}</h2>
-      {description ? <p className="mt-1 text-sm text-brand-muted">{description}</p> : null}
+    <header className="space-y-1">
+      <h2 className="font-heading text-2xl font-semibold tracking-tight text-brand-text md:text-[1.85rem]">{title}</h2>
+      {description ? <p className="max-w-3xl text-sm text-brand-muted md:text-[0.92rem]">{description}</p> : null}
     </header>
   );
 }

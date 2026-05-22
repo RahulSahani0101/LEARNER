@@ -10,10 +10,10 @@ interface Particle {
   color: string;
 }
 
-const COLORS = ["124, 58, 237", "37, 99, 235", "6, 182, 212"];
+const COLORS = ["233, 190, 68", "255, 214, 111", "82, 209, 255"];
 
 /**
- * Animated fixed canvas background with particles and mouse repulsion.
+ * Lightweight animated canvas background tuned for stable FPS.
  */
 export function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -24,29 +24,31 @@ export function ParticleBackground() {
       return;
     }
 
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext("2d", { alpha: true });
     if (!context) {
       return;
     }
 
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let width = window.innerWidth;
     let height = window.innerHeight;
     canvas.width = width;
     canvas.height = height;
 
-    const particles: Particle[] = Array.from({ length: 90 }, () => ({
+    const particleCount = prefersReducedMotion ? 0 : Math.min(38, Math.max(18, Math.floor(width / 64)));
+
+    const particles: Particle[] = Array.from({ length: particleCount }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.6,
-      vy: (Math.random() - 0.5) * 0.6,
-      radius: Math.random() * 1.8 + 1,
-      opacity: Math.random() * 0.3 + 0.2,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.25,
+      radius: Math.random() * 1.8 + 0.8,
+      opacity: Math.random() * 0.22 + 0.08,
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
     }));
 
-    let mouseX = -9999;
-    let mouseY = -9999;
     let frameId = 0;
+    let lastTimestamp = 0;
 
     const onResize = () => {
       width = window.innerWidth;
@@ -55,68 +57,48 @@ export function ParticleBackground() {
       canvas.height = height;
     };
 
-    const onMouseMove = (event: MouseEvent) => {
-      mouseX = event.clientX;
-      mouseY = event.clientY;
-    };
+    const render = (timestamp: number) => {
+      if (!lastTimestamp) {
+        lastTimestamp = timestamp;
+      }
 
-    const render = () => {
+      if (timestamp - lastTimestamp < 32) {
+        frameId = window.requestAnimationFrame(render);
+        return;
+      }
+
+      lastTimestamp = timestamp;
       context.clearRect(0, 0, width, height);
 
-      for (let i = 0; i < particles.length; i += 1) {
-        const p = particles[i];
-        const dx = p.x - mouseX;
-        const dy = p.y - mouseY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+      for (const particle of particles) {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
 
-        if (distance < 80) {
-          const force = (80 - distance) / 80;
-          p.vx += (dx / Math.max(distance, 1)) * force * 0.08;
-          p.vy += (dy / Math.max(distance, 1)) * force * 0.08;
+        if (particle.x < 0 || particle.x > width) {
+          particle.vx *= -1;
         }
 
-        p.vx *= 0.99;
-        p.vy *= 0.99;
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0 || p.x > width) p.vx *= -1;
-        if (p.y < 0 || p.y > height) p.vy *= -1;
+        if (particle.y < 0 || particle.y > height) {
+          particle.vy *= -1;
+        }
 
         context.beginPath();
-        context.fillStyle = `rgba(${p.color}, ${p.opacity})`;
-        context.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        context.fillStyle = `rgba(${particle.color}, ${particle.opacity})`;
+        context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
         context.fill();
-
-        for (let j = i + 1; j < particles.length; j += 1) {
-          const q = particles[j];
-          const nx = p.x - q.x;
-          const ny = p.y - q.y;
-          const dist = Math.sqrt(nx * nx + ny * ny);
-          if (dist < 120) {
-            context.beginPath();
-            context.strokeStyle = `rgba(124, 58, 237, ${0.14 - dist / 900})`;
-            context.lineWidth = 1;
-            context.moveTo(p.x, p.y);
-            context.lineTo(q.x, q.y);
-            context.stroke();
-          }
-        }
       }
 
       frameId = window.requestAnimationFrame(render);
     };
 
-    render();
+    frameId = window.requestAnimationFrame(render);
     window.addEventListener("resize", onResize);
-    window.addEventListener("mousemove", onMouseMove);
 
     return () => {
       window.cancelAnimationFrame(frameId);
       window.removeEventListener("resize", onResize);
-      window.removeEventListener("mousemove", onMouseMove);
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="pointer-events-none fixed inset-0 -z-10" aria-hidden="true" />;
+  return <canvas ref={canvasRef} className="pointer-events-none fixed inset-0 -z-10 opacity-70" aria-hidden="true" />;
 }
