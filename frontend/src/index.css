@@ -145,7 +145,27 @@ body {
   animation: drift 9s ease-in-out infinite, pulseSoft 4s ease-in-out infinite;
 }
 
-.fintech-aurora {
+.animated-grid-overlay {
+  position: absolute;
+  inset: -20%;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  opacity: 0.22;
+  animation: gridFlow 28s linear infinite;
+}
+
+@keyframes gridFlow {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-56px, -56px, 0);
+  }
+}
+
+.aurora-layer {
   position: absolute;
   border-radius: 999px;
   filter: blur(76px);
@@ -154,7 +174,7 @@ body {
   animation: auroraShift 8.5s ease-in-out infinite;
 }
 
-.fintech-aurora--left {
+.aurora-layer--left {
   left: -8%;
   top: 6%;
   width: 44%;
@@ -162,7 +182,7 @@ body {
   background: radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.82), rgba(59, 130, 246, 0));
 }
 
-.fintech-aurora--right {
+.aurora-layer--right {
   right: -9%;
   top: 10%;
   width: 38%;
@@ -171,7 +191,7 @@ body {
   animation-delay: 1.2s;
 }
 
-.fintech-aurora--bottom {
+.aurora-layer--bottom {
   left: 26%;
   bottom: -18%;
   width: 54%;

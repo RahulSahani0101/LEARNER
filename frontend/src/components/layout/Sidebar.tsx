@@ -25,9 +25,9 @@ import { useProfileStore } from "../../store/profileStore";
 import { useUiStore } from "../../store/uiStore";
 
 const navItems: Array<{ to: string; label: string; icon: typeof Gauge; adminOnly?: boolean }> = [
-  { to: "/dashboard", label: "Performance", icon: Gauge },
-  { to: "/courses", label: "Overview", icon: Layers },
-  { to: "/roadmap", label: "Revenue Plan", icon: Network },
+  { to: "/dashboard", label: "Learning Dashboard", icon: Gauge },
+  { to: "/courses", label: "Learning Paths", icon: Layers },
+  { to: "/roadmap", label: "Study Plan", icon: Network },
   { to: "/topics/spring-rest", label: "Focus Topic", icon: BookOpen },
   { to: "/dsa", label: "DSA Tracker", icon: Code2 },
   { to: "/interview-prep", label: "Interview Prep", icon: Mic2 },
