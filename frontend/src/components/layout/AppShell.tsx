@@ -1,4 +1,5 @@
 import type { PropsWithChildren } from "react";
+import { useLocation } from "react-router-dom";
 import { ParticleBackground } from "../effects/ParticleBackground";
 import { BrandSignature } from "./BrandSignature";
 import { RightRail } from "./RightRail";
@@ -9,6 +10,20 @@ import { Topbar } from "./Topbar";
  * Main responsive application shell wrapping all authenticated pages.
  */
 export function AppShell({ children }: PropsWithChildren) {
+  const location = useLocation();
+  const immersiveLearningMode =
+    location.pathname === "/dashboard" ||
+    location.pathname === "/explore" ||
+    location.pathname.startsWith("/course/");
+
+  if (immersiveLearningMode) {
+    return (
+      <div className="min-h-screen bg-[#EFE6D6]">
+        <main>{children}</main>
+      </div>
+    );
+  }
+
   return (
     <div className="relative min-h-screen overflow-x-hidden">
       <ParticleBackground />
