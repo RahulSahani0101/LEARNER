@@ -80,7 +80,7 @@ export function Topbar() {
           onClick={() => navigate("/profile")}
           className="group flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-2.5 py-1.5 transition hover:border-brand-blue/70"
         >
-          <img src={avatarUrl} alt={fullName || "Profile"} className="h-8 w-8 rounded-full border border-white/15 object-cover" loading="lazy" />
+          <img src={avatarUrl} alt={fullName || "Profile"} className="h-8 w-8 aspect-square rounded-lg border border-white/15 object-cover object-center" loading="lazy" />
           <div className="hidden text-left sm:block">
             <p className="text-xs font-semibold leading-tight text-brand-text">{fullName || "Rahul Sahani"}</p>
             <p className="text-[11px] text-brand-muted">{initials.toUpperCase()} Workspace</p>

@@ -85,8 +85,17 @@ export function Sidebar() {
               </button>
             </div>
 
-            <button className="rounded-xl border border-white/15 bg-black/40 p-1 transition hover:border-brand-blue/60" aria-label="Open profile" onClick={() => navigate("/profile")}>
-              <img src={avatarUrl} alt={fullName || "Rahul Sahani"} className="h-8 w-8 rounded-lg object-cover" loading="lazy" />
+            <button
+              className="h-10 w-10 overflow-hidden rounded-xl border border-white/15 bg-black/40 p-0 transition hover:border-brand-blue/60"
+              aria-label="Open profile"
+              onClick={() => navigate("/profile")}
+            >
+              <img
+                src={avatarUrl}
+                alt={fullName || "Rahul Sahani"}
+                className="h-full w-full aspect-square object-cover object-center"
+                loading="lazy"
+              />
             </button>
           </div>
 

@@ -14,9 +14,12 @@ export function AppShell({ children }: PropsWithChildren) {
       <ParticleBackground />
 
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
-        <div className="moving-orb absolute left-[-5rem] top-16 h-36 w-36 rounded-full bg-brand-purple/25 blur-3xl" />
-        <div className="moving-orb moving-orb--slow absolute right-[-4rem] top-24 h-28 w-28 rounded-full bg-brand-blue/25 blur-3xl" />
-        <div className="moving-orb moving-orb--pulse absolute bottom-12 left-1/3 h-24 w-24 rounded-full bg-brand-cyan/20 blur-2xl" />
+        <div className="fintech-aurora fintech-aurora--left" />
+        <div className="fintech-aurora fintech-aurora--right" />
+        <div className="fintech-aurora fintech-aurora--bottom" />
+        <div className="moving-orb absolute left-[-5rem] top-16 h-44 w-44 rounded-full bg-brand-purple/35 blur-3xl" />
+        <div className="moving-orb moving-orb--slow absolute right-[-4rem] top-24 h-36 w-36 rounded-full bg-brand-blue/30 blur-3xl" />
+        <div className="moving-orb moving-orb--pulse absolute bottom-12 left-1/3 h-28 w-28 rounded-full bg-brand-cyan/28 blur-2xl" />
       </div>
 
       <Sidebar />
