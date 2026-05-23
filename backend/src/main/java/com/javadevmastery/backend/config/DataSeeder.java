@@ -54,6 +54,12 @@ public class DataSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) {
         if (userRepository.count() > 0) {
+            userRepository.findByEmail("demo@javadevmastery.com").ifPresent(existingDemo -> {
+                if (!"Rahul Sahani".equals(existingDemo.getFullName())) {
+                    existingDemo.setFullName("Rahul Sahani");
+                    userRepository.save(existingDemo);
+                }
+            });
             return;
         }
 

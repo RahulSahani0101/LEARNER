@@ -75,7 +75,12 @@ interface MetricCardProps {
  */
 function MetricCard({ title, value, subtitle }: MetricCardProps) {
   return (
-    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}>
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -2, scale: 1.01 }}
+      transition={{ duration: 0.2 }}
+    >
       <GlassCard>
         <p className="text-xs uppercase tracking-wide text-brand-muted">{title}</p>
         <p className="mt-2 font-heading text-2xl font-semibold text-brand-text">{value}</p>
@@ -94,7 +99,7 @@ interface TopicProgressItemProps {
  */
 function TopicProgressItem({ topic }: TopicProgressItemProps) {
   return (
-    <article className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+    <article className="rounded-xl border border-white/10 bg-white/[0.03] p-3 transition duration-200 hover:border-brand-blue/50 hover:bg-white/[0.06]">
       <div className="flex items-center justify-between gap-2">
         <h4 className="text-sm font-medium text-brand-text">{topic.title}</h4>
         <span className="text-xs text-brand-muted">{topic.estimatedMinutes} min</span>

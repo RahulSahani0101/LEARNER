@@ -38,7 +38,7 @@ export function AuthPage() {
         <article className="relative flex flex-col justify-between gap-6 border-b border-white/10 p-6 md:border-b-0 md:border-r md:p-10">
           <div>
             <p className="inline-flex items-center gap-2 rounded-full border border-brand-blue/40 bg-brand-blue/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-brand-blue">
-              Premium Build
+              CODESA Premium
             </p>
             <h1 className="mt-5 font-heading text-3xl font-semibold leading-tight text-brand-text md:text-4xl">
               Welcome Rahul Sahani,

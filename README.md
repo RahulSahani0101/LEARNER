@@ -1,6 +1,6 @@
-# JavaDev Mastery
+# CODESA
 
-JavaDev Mastery is a full-stack EdTech platform focused on Java backend and DSA interview preparation.
+CODESA is a full-stack EdTech platform focused on Java backend and DSA interview preparation.
 
 ## Stack
 - Frontend: React 18, TypeScript, Vite 5, Tailwind 3, Framer Motion, React Query, Zustand
@@ -49,8 +49,8 @@ This repository now includes `render.yaml` for one-click Render setup:
 2. In Render dashboard, choose **New +** -> **Blueprint**.
 3. Select this repository.
 4. Render creates:
-   - `javadevmastery-backend` (Docker web service)
-   - `javadevmastery-frontend` (static site)
+   - `codesa-backend` (Docker web service)
+   - `codesa` (static site)
 5. Update environment values after first deploy:
    - Backend `APP_CORS_ALLOWED_ORIGIN_PATTERNS` to your real frontend URL
    - Frontend `VITE_API_BASE_URL` to your real backend URL + `/api`

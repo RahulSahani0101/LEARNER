@@ -65,8 +65,8 @@ export function Sidebar() {
       >
         <div className="mb-4 flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.03] p-3">
           <div>
-            <p className="font-heading text-lg font-semibold tracking-wide gradient-text">Rahul Console</p>
-            <p className="text-xs text-brand-muted">Premium Java Engineering Track</p>
+            <p className="font-heading text-lg font-semibold tracking-wide gradient-text">CODESA</p>
+            <p className="text-xs text-brand-muted">Premium Java Engineering Platform</p>
           </div>
           <button
             className="rounded-md p-2 text-brand-muted hover:bg-white/5 hover:text-white lg:hidden"

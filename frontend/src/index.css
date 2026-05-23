@@ -100,6 +100,39 @@ body {
   }
 }
 
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(12px, -10px, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes pulseSoft {
+  0%, 100% {
+    opacity: 0.28;
+  }
+  50% {
+    opacity: 0.48;
+  }
+}
+
+.moving-orb {
+  animation: drift 8s ease-in-out infinite;
+}
+
+.moving-orb--slow {
+  animation-duration: 12s;
+}
+
+.moving-orb--pulse {
+  animation: drift 9s ease-in-out infinite, pulseSoft 4s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
