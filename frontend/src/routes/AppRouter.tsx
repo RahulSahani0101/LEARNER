@@ -7,8 +7,6 @@ import { ProtectedRoute } from "./ProtectedRoute";
 
 const AuthPage = lazy(() => import("../pages/AuthPage").then((module) => ({ default: module.AuthPage })));
 const DashboardPage = lazy(() => import("../pages/DashboardPage").then((module) => ({ default: module.DashboardPage })));
-const ExplorePage = lazy(() => import("../pages/ExplorePage").then((module) => ({ default: module.ExplorePage })));
-const CourseDetailPage = lazy(() => import("../pages/CourseDetailPage").then((module) => ({ default: module.CourseDetailPage })));
 const RoadmapPage = lazy(() => import("../pages/RoadmapPage").then((module) => ({ default: module.RoadmapPage })));
 const AIMentorPage = lazy(() => import("../pages/AiMentorPage").then((module) => ({ default: module.AiMentorPage })));
 const ProjectsPage = lazy(() => import("../pages/ProjectsPage").then((module) => ({ default: module.ProjectsPage })));
@@ -51,8 +49,6 @@ export function AppRouter() {
                   <AppShell>
                     <Routes>
                       <Route path="dashboard" element={<DashboardPage />} />
-                      <Route path="explore" element={<ExplorePage />} />
-                      <Route path="course/:courseId" element={<CourseDetailPage />} />
                       <Route path="courses" element={<RoadmapPage mode="courses" />} />
                       <Route path="roadmap" element={<RoadmapPage mode="roadmap" />} />
                       <Route path="topics/:slug" element={<TopicPage />} />
