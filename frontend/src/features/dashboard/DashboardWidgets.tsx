@@ -32,9 +32,9 @@ export const DashboardWidgets = memo(function DashboardWidgets({ dashboard }: Da
               <XAxis dataKey="day" stroke="#9EA9B8" />
               <YAxis stroke="#9EA9B8" />
               <Tooltip
-                cursor={{ fill: "rgba(255,214,111,0.1)" }}
+                cursor={{ fill: "rgba(139,92,246,0.12)" }}
                 contentStyle={{
-                  background: "rgba(18, 23, 34, 0.94)",
+                  background: "rgba(12, 16, 27, 0.96)",
                   border: "1px solid rgba(255,255,255,0.14)",
                   borderRadius: 12,
                 }}
@@ -42,8 +42,8 @@ export const DashboardWidgets = memo(function DashboardWidgets({ dashboard }: Da
               <Bar dataKey="minutes" fill="url(#barGradient)" radius={[10, 10, 0, 0]} />
               <defs>
                 <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#E9BE44" stopOpacity={0.95} />
-                  <stop offset="95%" stopColor="#52D1FF" stopOpacity={0.65} />
+                  <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.95} />
+                  <stop offset="95%" stopColor="#06B6D4" stopOpacity={0.65} />
                 </linearGradient>
               </defs>
             </BarChart>

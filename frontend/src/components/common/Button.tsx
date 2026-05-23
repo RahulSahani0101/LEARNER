@@ -12,7 +12,7 @@ export function Button({ children, className, variant = "primary", ...props }: P
   const base =
     "inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-cyan disabled:cursor-not-allowed disabled:opacity-50";
   const styleByVariant: Record<NonNullable<ButtonProps["variant"]>, string> = {
-    primary: "bg-gradient-to-r from-brand-purple to-brand-blue text-[#1A1407] shadow-neonPurple hover:brightness-105 hover:shadow-neonBlue",
+    primary: "bg-gradient-to-r from-brand-purple to-brand-blue text-white shadow-neonPurple hover:brightness-105 hover:shadow-neonBlue",
     secondary: "glass-card text-brand-text hover:border-brand-cyan/60",
     ghost: "text-brand-muted hover:bg-white/5 hover:text-brand-text",
   };

@@ -5,27 +5,27 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Plus Jakarta Sans", "sans-serif"],
-        heading: ["Sora", "Plus Jakarta Sans", "sans-serif"],
+        sans: ["Manrope", "sans-serif"],
+        heading: ["Outfit", "Manrope", "sans-serif"],
         mono: ["IBM Plex Mono", "monospace"],
       },
       colors: {
         brand: {
-          purple: "#E9BE44",
-          blue: "#FFD66F",
-          cyan: "#52D1FF",
-          bg0: "#141922",
-          bg1: "#1A202B",
-          bg2: "#202734",
-          panel: "#262E3E",
-          text: "#F5F7FA",
-          muted: "#9EA9B8",
-          border: "#313A4A",
+          purple: "#8B5CF6",
+          blue: "#3B82F6",
+          cyan: "#06B6D4",
+          bg0: "#090B12",
+          bg1: "#0F1320",
+          bg2: "#141A2A",
+          panel: "#1A2133",
+          text: "#EEF2FF",
+          muted: "#90A0BE",
+          border: "#283349",
         },
       },
       boxShadow: {
-        neonPurple: "0 18px 44px rgba(233,190,68,0.24)",
-        neonBlue: "0 18px 44px rgba(82,209,255,0.2)",
+        neonPurple: "0 20px 44px rgba(139,92,246,0.24)",
+        neonBlue: "0 20px 44px rgba(59,130,246,0.2)",
         softPanel: "0 14px 28px rgba(8,10,18,0.28)",
       },
       backdropBlur: {
@@ -37,8 +37,8 @@ const config: Config = {
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
         pulseGlow: {
-          "0%, 100%": { boxShadow: "0 0 0 rgba(233,190,68,0.1)" },
-          "50%": { boxShadow: "0 0 30px rgba(233,190,68,0.25)" },
+          "0%, 100%": { boxShadow: "0 0 0 rgba(139,92,246,0.1)" },
+          "50%": { boxShadow: "0 0 30px rgba(59,130,246,0.24)" },
         },
         floatY: {
           "0%, 100%": { transform: "translateY(0px)" },
@@ -52,7 +52,7 @@ const config: Config = {
       },
       backgroundImage: {
         "hero-mesh":
-          "radial-gradient(circle at 14% 18%, rgba(233,190,68,0.28), transparent 37%), radial-gradient(circle at 90% 10%, rgba(255,214,111,0.26), transparent 28%), radial-gradient(circle at 72% 76%, rgba(82,209,255,0.16), transparent 38%)",
+          "radial-gradient(circle at 12% 15%, rgba(59,130,246,0.26), transparent 38%), radial-gradient(circle at 86% 10%, rgba(139,92,246,0.24), transparent 30%), radial-gradient(circle at 70% 74%, rgba(6,182,212,0.16), transparent 42%)",
       },
     },
   },

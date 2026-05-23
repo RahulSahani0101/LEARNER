@@ -10,7 +10,7 @@ interface Particle {
   color: string;
 }
 
-const COLORS = ["233, 190, 68", "255, 214, 111", "82, 209, 255"];
+const COLORS = ["139, 92, 246", "59, 130, 246", "6, 182, 212"];
 
 /**
  * Lightweight animated canvas background tuned for stable FPS.

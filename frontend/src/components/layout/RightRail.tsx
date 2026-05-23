@@ -18,7 +18,7 @@ export function RightRail() {
         </div>
         <p className="mt-2 text-sm text-brand-muted">Focus now: Spring Security JWT lifecycle, refresh pitfalls, and production token rotation checklist.</p>
         <button
-          className="mt-3 inline-flex items-center gap-2 rounded-lg bg-brand-blue px-3 py-1.5 text-xs font-semibold text-[#1A1407] transition hover:brightness-105"
+          className="mt-3 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-brand-purple to-brand-blue px-3 py-1.5 text-xs font-semibold text-white transition hover:brightness-105"
           aria-label="Open AI mentor"
           onClick={() => navigate("/ai-mentor")}
         >
